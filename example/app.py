@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import logging
-import sys
-sys.path.insert(0, '/opt/work/workin')
-sys.path.insert(0, '/opt/work/workin/example')
 
 import tornado.web
 import tornado.httpserver
