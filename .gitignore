@@ -1,0 +1,8 @@
+*.py[cod]
+*.sw[odp]
+*.db
+venv
+.tmp
+build
+dist
+*.egg-info
