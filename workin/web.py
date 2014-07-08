@@ -95,7 +95,7 @@ class Application(tornado.web.Application):
 
         for app in self.settings['installed_apps']:
             try:
-                importlib.import_module(app + '.views')
+                importlib.import_module(app + '.handlers')
             except ImportError, e:
                 logging.exception("Error occurred while discovering app '%s':"
                         "%s" % (app, e))
