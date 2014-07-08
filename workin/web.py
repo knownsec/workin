@@ -132,7 +132,7 @@ class RequestHandler(BaseHandler, FlashMessageMixin):
         return self._session
 
     def on_finish(self):
-        if self.session and self.session.is_modified:
+        if self.session:  # and self.session.is_modified:
             self.session.save()
 
         tornado.web.RequestHandler.on_finish(self)

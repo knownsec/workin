@@ -15,7 +15,7 @@ class User(Base):
     import hasher
     HASHER = hasher
 
-    __tablename__ = 'user'
+    __tablename__ = 'test_user'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(Unicode(100), nullable=False, index=True)
