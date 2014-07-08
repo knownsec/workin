@@ -96,8 +96,9 @@ class Application(tornado.web.Application):
         for app in self.settings['installed_apps']:
             try:
                 importlib.import_module(app + '.handlers')
+                importlib.import_module(app + '.models')
             except ImportError, e:
-                logging.exception("Error occurred while discovering app '%s':"
+                logging.warn("No models/handlers found in app '%s':"
                         "%s" % (app, e))
 
         self.handlers.extend(Route.routes())
