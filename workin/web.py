@@ -24,7 +24,7 @@ class Application(tornado.web.Application):
     handlers = []
 
     def __init__(self, settings_module):
-        settings.configure(settings_module)
+        settings.configure(settings_module, True)
         self.settings = settings.to_dict()
         self._setup_extensions()
         self._setup_session_engine()
@@ -104,11 +104,11 @@ class Application(tornado.web.Application):
 
     def _setup_extensions(self):
         """Auto discovery workin extensions"""
-        if not self.settings.get('WORKIN_EXTENSIONS'):
+        if not self.settings.get('workin_extensions'):
             return
 
         from workin.extensions import BaseDiscover, find_extensions
-        for ext in self.settings['WORKIN_EXTENSIONS']:
+        for ext in self.settings['workin_extensions']:
             discovery = find_extensions(ext)
             if isinstance(discovery, BaseDiscover):
                 discovery.execute(self)

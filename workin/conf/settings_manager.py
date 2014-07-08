@@ -27,7 +27,7 @@ class Settings(object):
 
     _settings = {}
 
-    def configure(self, settings_module=None):
+    def configure(self, settings_module=None, override=False):
         self.set_module_value(global_settings)
         # Override with user custom settings.
         if settings_module:
@@ -37,7 +37,7 @@ class Settings(object):
                 except ImportError:
                     logging.exception("Cannot import settings '%s'. (Is is in \
                             sys.path?)" % (settings_module))
-            self.set_module_value(settings_module, True)
+            self.set_module_value(settings_module, override)
 
         if not self.__dict__.get('COOKIE_SECRET'):
             warnings.warn("The COOKIE_SECRET settings must not be empty.",
