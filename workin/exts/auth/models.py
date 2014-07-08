@@ -1,16 +1,16 @@
 #!/usr/bin/env python
-# # coding: utf-8
+# -*- coding: utf-8 -*-
 
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
 from sqlalchemy.types import Integer, String, Unicode
 
-Base = declarative_base()
+from workin.database import Base
 
 
 class User(Base):
+    """User model."""
 
-    # module/class object which has functions/methods
+    # a module/class object which has functions/methods
     # `make_password` and `check_password` to handle password securely
     import hasher
     HASHER = hasher
@@ -18,9 +18,9 @@ class User(Base):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    username = Column(Unicode(200), nullable=False, index=True)
-    password = Column(String(200), nullable=False)
-    email = Column(Unicode(200), nullable=False)
+    username = Column(Unicode(100), nullable=False, index=True)
+    password = Column(String(100), nullable=False)
+    email = Column(Unicode(100), nullable=False)
 
     def __repr__(self):
         return '<User %s>' % self.id

@@ -1,5 +1,11 @@
 #!/usr/bin/env python
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 # user orm class
-USER_MODEL = 'workin.exts.auth.models.User'
+auth_user_model = 'workin.exts.auth.models.User'
+
+# session key of user
+auth_session_key = 'auth_user_id'
+
+# cookie key of session
+auth_cookie_key = 'auth_session_id'
