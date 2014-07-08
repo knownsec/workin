@@ -22,6 +22,7 @@ class Application(tornado.web.Application):
     session_engine = None
     jinja_env = None
     handlers = []
+    context_processors = []
 
     def __init__(self, settings_module):
         settings.configure(settings_module, True)
@@ -31,6 +32,7 @@ class Application(tornado.web.Application):
         self._setup_database_engine()
         self._setup_template_loaders()
         self._setup_installed_apps()
+        self._setup_context_processors()
 
         tornado.web.Application.__init__(self, handlers=self.handlers,
                 **self.settings)
@@ -51,6 +53,11 @@ class Application(tornado.web.Application):
     def _setup_middlewares(self):
         self.middleware_manager = MiddlewareManager(**self.settings)
         self.middleware_manager.run_init_hooks(self)
+
+    def _setup_context_processors(self):
+        # load context processors
+        processors = self.settings.get('CONTEXT_PROCESSORS', [])
+        self.context_processors = [importlib.load_class(x) for x in set(processors)]
 
     def _setup_database_engine(self):
         from sqlalchemy import create_engine
@@ -112,11 +119,24 @@ class Application(tornado.web.Application):
         for ext in self.settings['workin_extensions']:
             discovery = find_extensions(ext)
             if isinstance(discovery, BaseDiscover):
+                logging.info("Install workin.exts.admin ...")
                 discovery.execute(self)
 
 
 class BaseHandler(Jinja2Mixin, tornado.web.RequestHandler):
-    pass
+
+    def _populate_context_from_ctxprocessors(self, context):
+        ctx = {}
+        ctx.update(context)
+
+        for ctx_processor in self.application.context_processors:
+            ctx.update(ctx_processor(self))
+
+        return ctx
+
+    def render(self, template, context={}):
+        context = self._populate_context_from_ctxprocessors(context)
+        return super(BaseHandler, self).render(template, **context)
 
 
 class RequestHandler(BaseHandler, FlashMessageMixin):
