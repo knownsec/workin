@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from sqlalchemy import Column
-from sqlalchemy.types import Integer, String, Unicode
+from sqlalchemy.types import Integer, String, Unicode, DateTime
 
 from workin.database import Base
 
@@ -21,6 +21,8 @@ class User(Base):
     username = Column(Unicode(100), nullable=False, index=True)
     password = Column(String(100), nullable=False)
     email = Column(Unicode(100), nullable=False)
+    date_joined = Column(DateTime(), nullable=False)
+    last_login = Column(DateTime())
 
     def __repr__(self):
         return '<User %s>' % self.id
