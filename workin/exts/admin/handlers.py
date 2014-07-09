@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from tornado.web import StaticFileHandler
 from sqlalchemy.orm import ColumnProperty, class_mapper
 from wtforms.fields import (StringField, TextAreaField, IntegerField,
     DateTimeField, DateField, FileField, BooleanField)
@@ -47,44 +46,8 @@ class AdminMixin(object):
             kwargs['model_groups'].append(orphan_group)
 
         kwargs['model_names'] = self.model_set.keys()
-        kwargs['admin_static_url'] = self.admin_static_url
 
         return super(AdminMixin, self).get_context_data(**kwargs)
-
-    def admin_static_url(self, path, include_host=None, **kwargs):
-        """Returns a static URL for the given relative static file path.
-
-        This method requires you set the ``static_path`` setting in your
-        application (which specifies the root directory of your static
-        files).
-
-        This method returns a versioned url (by default appending
-        ``?v=<signature>``), which allows the static files to be
-        cached indefinitely.  This can be disabled by passing
-        ``include_version=False`` (in the default implementation;
-        other static file implementations are not required to support
-        this, but they may support other options).
-
-        By default this method returns URLs relative to the current
-        host, but if ``include_host`` is true the URL returned will be
-        absolute.  If this handler has an ``include_host`` attribute,
-        that value will be used as the default for all `static_url`
-        calls that do not pass ``include_host`` as a keyword argument.
-
-        """
-        self.require_setting("admin_static_path", "admin_static_url")
-        get_url = self.settings.get("static_handler_class",
-                                    StaticFileHandler).make_static_url
-
-        if include_host is None:
-            include_host = getattr(self, "include_host", False)
-
-        if include_host:
-            base = self.request.protocol + "://" + self.request.host
-        else:
-            base = ""
-
-        return base + get_url(self.settings, path, **kwargs)
 
 
 class AdminModelMixin(AdminMixin):
