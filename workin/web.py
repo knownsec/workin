@@ -56,7 +56,7 @@ class Application(tornado.web.Application):
 
     def _setup_context_processors(self):
         # load context processors
-        processors = self.settings.get('CONTEXT_PROCESSORS', [])
+        processors = self.settings.get('context_processors', [])
         self.context_processors = [importlib.load_class(x) for x in set(processors)]
 
     def _setup_database_engine(self):
@@ -134,7 +134,7 @@ class BaseHandler(Jinja2Mixin, tornado.web.RequestHandler):
 
         return ctx
 
-    def render(self, template, context={}):
+    def render(self, template, **context):
         context = self._populate_context_from_ctxprocessors(context)
         return super(BaseHandler, self).render(template, **context)
 

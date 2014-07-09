@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 # user orm class
-auth_user_model = 'workin.exts.auth.models.User'
+AUTH_USER_MODEL = 'workin.exts.auth.models.User'
 
 # session key of user
-auth_session_key = 'auth_user_id'
+AUTH_SESSION_KEY = 'auth_user_id'
 
 # cookie key of session
-auth_cookie_key = 'auth_session_id'
+AUTH_COOKIE_KEY = 'session_id'
