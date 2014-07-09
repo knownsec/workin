@@ -42,7 +42,7 @@
 				<div class="row">
 					<!-- logo -->
 					<div class="col-md-2 logo">
-						<a href="index.html"><img src="assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard" /></a>
+                        <a href="index.html"><img src="{{reverse_url("admin-static-url", "admin/img/kingadmin-logo-white.png")}}" alt="KingAdmin - Admin Dashboard" /></a>
 						<h1 class="sr-only">KingAdmin Admin Dashboard</h1>
 					</div>
 					<!-- end logo -->
@@ -61,7 +61,7 @@
 							<div class="col-md-9">
 								<div class="top-bar-right">
 									<!-- responsive menu bar icon -->
-									<a href="page-blank.html#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
+									<a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
 									<!-- end responsive menu bar icon -->
 									<button type="button" id="start-tour" class="btn btn-link"><i class="fa fa-refresh"></i> Start Tour</button>
 									<button type="button" id="global-volume" class="btn btn-link btn-global-volume"><i class="fa"></i> <span class="badge element-bg-color-blue">New</span></button>
@@ -83,7 +83,7 @@
 															<a href="page-blank.html#">
 																<div class="media">
 																	<div class="pull-left" href="#">
-																		<img class="media-object" src="assets/img/user1.png" alt="Antonio">
+																		<img class="media-object" src="{{reverse_url("admin-static-url", "admin/img/user1.png")}}" alt="Antonio">
 																	</div>
 																	<div class="media-body">
 																		<h5 class="media-heading name">Antonius</h5>
@@ -238,7 +238,7 @@
 									<div class="logged-user">
 										<div class="btn-group">
 											<a href="page-blank.html#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-												<img src="assets/img/user-avatar.png" />
+												<img src="{{reverse_url("admin-static-url", "admin/img/user-avatar.png")}}" />
 												<span class="name">Stacy Rose</span> <span class="caret"></span>
 											</a>
 											<ul class="dropdown-menu" role="menu">
@@ -459,6 +459,7 @@
 						
 						<!-- main -->
 						<div class="content">
+                            {% block content %}
 							<div class="main-header">
 								<h2>Blank Page</h2>
 								<em>an example of blank page</em>
@@ -466,6 +467,7 @@
 
 							<div class="main-content">
 							</div><!-- /main-content -->
+                            {% endblock %}
 						</div><!-- /main -->
 					</div><!-- /content-wrapper -->
 				</div><!-- /row -->

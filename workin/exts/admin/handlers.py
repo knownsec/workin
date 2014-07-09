@@ -19,9 +19,6 @@ from . import site
 
 class AdminMixin(object):
     def initialize(self, *args, **kwargs):
-        # self.admin_settings = self.application.admin_settings
-        # self.template_name = ''.join([self.settings['admin_template_path'], self.template_name])
-
         self.model_set = {}
         for model_admin in site.model_admins:
             try:
@@ -31,21 +28,22 @@ class AdminMixin(object):
             except:
                 pass
         # if len(self.model_set) < 1:
-            # raise ConfigError('No models were provided in \'admin_classes\' setting.')
+        #     raise ConfigError('No models were provided in \'admin_classes\' setting.')
 
     def get_context_data(self, **kwargs):
-        model_groups = site.model_groups
-        kwargs['model_groups'] = [group() for group in model_groups]
+        # model_groups = site.model_groups
+        # kwargs['model_groups'] = [group() for group in model_groups]
 
-        grouped_models = []
-        for group in model_groups:
-            grouped_models.extend(group.model_list)
-        orphan_models = [model[0] for model in self.model_set.values() if model[0] not in grouped_models]
-        if len(orphan_models) > 0:
-            orphan_group = BaseGroup(orphan_models)
-            kwargs['model_groups'].append(orphan_group)
+        # grouped_models = []
+        # for group in model_groups:
+        #     grouped_models.extend(group.model_list)
+        # orphan_models = [model[0] for model in self.model_set.values() if model[0] not in grouped_models]
+        # if len(orphan_models) > 0:
+        #     orphan_group = BaseGroup(orphan_models)
+        #     kwargs['model_groups'].append(orphan_group)
 
         kwargs['model_names'] = self.model_set.keys()
+        kwargs['zip'] = zip
 
         return super(AdminMixin, self).get_context_data(**kwargs)
 
@@ -143,8 +141,8 @@ class AdminAddHandler(AdminModelMixin, AdminFormMixin, FormHandler):
 
     def get_success_url(self):
         if self.add_new:
-            return self.reverse_url('admin_add', self.model.__name__)
-        return self.reverse_url('admin_detail', self.model.__name__, self.object_id)
+            return self.reverse_url('admin-add', self.model.__name__)
+        return self.reverse_url('admin-detail', self.model.__name__, self.object_id)
 
 
 class AdminDetailHandler(AdminModelMixin, DetailHandler):
@@ -288,11 +286,11 @@ class AdminListHandler(AdminModelMixin, FormMixin, ListHandler):
 
     def get_success_url(self):
         page_num = self.kwargs.get('page', 1)
-        return self.reverse_url('admin_list', self.model.__name__, page_num)
+        return self.reverse_url('admin-list', self.model.__name__, page_num)
 
 
 class AdminEditHandler(AdminModelMixin, AdminFormMixin, DetailHandler):
-    template_name = 'admin/admin_edit.html'
+    template_name = 'admin/admin_add.html'
     initial = {}
 
     def post(self, *args, **kwargs):
@@ -330,4 +328,4 @@ class AdminEditHandler(AdminModelMixin, AdminFormMixin, DetailHandler):
         return super(AdminEditHandler, self).get_context_data(**kwargs)
 
     def get_success_url(self):
-        return self.reverse_url('admin_detail', self.model.__name__, self.object.id)
+        return self.reverse_url('admin-detail', self.model.__name__, self.object.id)

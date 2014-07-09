@@ -22,17 +22,17 @@ class BulkDeleteAction(AdminBulkAction):
 
 
 class EditAction(AdminAction):
-    url_name = 'admin_edit'
+    url_name = 'admin-edit'
     label = 'Edit'
 
 
 class DeleteAction(AdminAction):
-    url_name = 'admin_edit'
+    url_name = 'admin-edit'
     label = 'Delete'
 
 
 class DetailAction(AdminAction):
-    url_name = 'admin_detail'
+    url_name = 'admin-detail'
     label = 'Detail'
 
 

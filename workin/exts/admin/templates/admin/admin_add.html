@@ -1,0 +1,35 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="main-header">
+    <h2>New {{handler.model.__name__}}</h2>
+    <em>an example of dash</em>
+</div>
+
+<div class="main-content">
+    <form class="form-horizontal" role="form" method="post" action=".">
+        {{ xsrf_form_html() }}
+        {% for field in form %}
+        <div class="form-group">
+            {{ field.label(class_="col-sm-2 control-label") }}
+            <div class="col-sm-5">
+            {{ field(class_="form-control") }}
+            {% if field.errors %}
+                <ul class="parsley-error-list">
+                    {% for error in field.errors %}
+                    <li class="mincheck" style="display: list-item">{{error}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> Create Action</button>
+            </div>
+        </div>
+    </form>
+</div><!-- /main-content -->
+{% endblock %}

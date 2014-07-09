@@ -32,6 +32,6 @@ class AdminSite(object):
     model_admins = set()
     model_groups = set()
 
-    def register(self, model, admin_class=None, group="", **kwargs):
+    def register(self, admin_class, group="", **kwargs):
         self.model_admins.add(admin_class)
         self.model_groups.add(group)

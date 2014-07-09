@@ -28,7 +28,6 @@ class Discover(BaseDiscover):
             url(r'/admin/static/(.*)', StaticFileHandler, {'path':
                 application.settings['admin_static_path']},
                 name='admin-static-url'),
-            url(r'/admin/', AdminDashboardHandler, name='admin-dashboard'),
             url(r'/admin/list/(?P<model>[^\/]+)/(?P<page>\d+)/', AdminListHandler,
                 name='admin-list'),
             url(r'/admin/edit/(?P<model>[^\/]+)/(?P<id>\d+)/', AdminEditHandler,
@@ -36,6 +35,7 @@ class Discover(BaseDiscover):
             url(r'/admin/add/(?P<model>[^\/]+)/', AdminAddHandler, name='admin-add'),
             url(r'/admin/detail/(?P<model>[^\/]+)/(?P<id>\d+)/',
                 AdminDetailHandler, name='admin-detail'),
+            url(r'/admin/', AdminDashboardHandler, name='admin-dashboard'),
         )
 
         application.handlers.extend(ADMIN_HANDLERS)

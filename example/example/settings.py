@@ -3,7 +3,7 @@
 
 DEBUG = True
 
-INSTALLED_APPS = ()
+INSTALLED_APPS = ('example.apps.generic',)
 
 SQLALCHEMY_ENGINE_URL = 'sqlite:///sqlite.db'
 
