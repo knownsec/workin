@@ -21,11 +21,7 @@ from workin.conf import global_settings
 
 class Settings(object):
 
-    TORNADO_SETTINGS = ('DEBUG', 'LOGIN_URL', 'XSRF_COOKIES', 'COOKIE_SECRET',
-            'TEMPLATE_PATH', 'STATIC_PATH', 'AUTOESCAPE')
     TUPLE_SETTINGS = ("TEMPLATE_DIRS", "INSTALLED_APPS")
-
-    _settings = {}
 
     def configure(self, settings_module=None, override=False):
         self.set_module_value(global_settings)
@@ -51,16 +47,16 @@ class Settings(object):
             if setting in self.TUPLE_SETTINGS and isinstance(value,
                     basestring):
                 value = (getattr(module, setting), )
-            if override or setting.lower() not in self._settings:
+            if override or setting.lower() not in self.__dict__:
                 # tornado settings should be lowercase only.
-                self._settings[setting.lower()] = value
+                self.__dict__[setting.lower()] = value
 
     def __setattr__(self, name, value):
-        self._settings[name.lower()] = value
+        self.__dict__[name.lower()] = value
 
     def __getattr__(self, name):
-        if name in self._settings:
-            return self._settings[name]
+        if name in self.__dict__:
+            return self.__dict__[name]
         else:
             raise AttributeError("Settings has no attribute `%s`" % name)
 
@@ -68,12 +64,12 @@ class Settings(object):
         return self.__getattr__(name)
 
     def __delitem__(self, name):
-        del self._settings[name]
+        del self.__dict__[name]
 
     def get(self, name, default=None):
-        if name in self._settings:
-            return self._settings(name)
+        if name in self.__dict__:
+            return self.__dict__(name)
         return default
 
     def to_dict(self):
-        return self._settings
+        return self.__dict__

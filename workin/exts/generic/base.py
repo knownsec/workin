@@ -36,7 +36,7 @@ class TemplateResponseMixin(object):
     """
     template_name = None
 
-    def render(self, **context):
+    def render(self, context):
         return super(TemplateResponseMixin, self).render(self.template_name, **context)
 
 
