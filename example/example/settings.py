@@ -16,7 +16,7 @@ SESSION_OPTIONS = {
 }
 SESSION_TIMEOUT = 60
 
-TEMPLATE_DIRS = ('templates/', '/opt/work/workin/workin/exts/admin/templates/')
+TEMPLATE_DIRS = ('templates/', )
 
 try:
     from local_settings import *

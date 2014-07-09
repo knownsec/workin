@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".select-ticket-type, .select-ticket-priority").multiselect()});

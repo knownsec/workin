@@ -47,6 +47,7 @@ class AdminMixin(object):
             kwargs['model_groups'].append(orphan_group)
 
         kwargs['model_names'] = self.model_set.keys()
+        kwargs['admin_static_url'] = self.admin_static_url
 
         return super(AdminMixin, self).get_context_data(**kwargs)
 

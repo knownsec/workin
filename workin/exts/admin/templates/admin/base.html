@@ -1,391 +1,519 @@
 <!DOCTYPE html>
-<html>
-    
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Administry | Dashboard{% endblock %}</title>
-        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <!-- bootstrap 3.0.2 -->
-        <link href="/admin/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <!-- font Awesome -->
-        <link href="/admin/static/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <!-- Ionicons -->
-        <link href="/admin/static/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-        <!-- Morris chart -->
-        <link href="/admin/static/css/morris/morris.css" rel="stylesheet" type="text/css" />
-        <!-- jvectormap -->
-        <link href="/admin/static/css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
-        <!-- fullCalendar -->
-        <link href="/admin/static/css/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
-        <!-- Daterange picker -->
-        <link href="/admin/static/css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
-        <!-- bootstrap wysihtml5 - text editor -->
-        <link href="/admin/static/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
-        <!-- Theme style -->
-        <link href="/admin/static/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-        <link href="/admin/static/css/administry.css" rel="stylesheet" type="text/css" />
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    
-    <body class="skin-blue">
-        <!-- header logo: style can be found in header.less -->
-        <header class="header"> <a href="index.html" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Administry
-            </a>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <title>{% block title %}KingAdmin | Dashboard{% endblock %}</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="KingAdmin - Bootstrap Admin Dashboard Theme">
+	<meta name="author" content="The Develovers">
 
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button--> <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
+	<!-- CSS -->
+    <link href="{{reverse_url("admin-static-url", "admin/css/bootstrap.css")}}" rel="stylesheet" type="text/css">
+	<link href="{{reverse_url("admin-static-url", "admin/css/font-awesome.css")}}" rel="stylesheet" type="text/css">
+	<link href="{{reverse_url("admin-static-url", "admin/css/main.css")}}" rel="stylesheet" type="text/css">
 
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                        <li class="dropdown messages-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope"></i>
-                                <span class="label label-success">4</span>
-                            </a>
+	<!-- CSS for demo style switcher. you can remove this -->
+	<link href="{{reverse_url("admin-static-url", "admin/style-switcher/css/style-switcher.css")}}" rel="stylesheet" type="text/css">
 
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 4 messages</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li>
-                                            <!-- start message --> <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="img/avatar3.png" class="img-circle" alt="User Image"/>
-                                                </div>
-                                                <h4>
-                                                    Support Team
-                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{reverse_url("admin-static-url", "admin/ico/kingadmin-favicon144x144.png")}}">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{reverse_url("admin-static-url", "admin/ico/kingadmin-favicon114x114.png")}}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{reverse_url("admin-static-url", "admin/ico/kingadmin-favicon72x72.png")}}">
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{reverse_url("admin-static-url", "admin/ico/kingadmin-favicon57x57.png")}}">
+	<link rel="shortcut icon" href="assets/ico/favicon.png">
 
-                                        </li>
-                                        <!-- end message -->
-                                        <li> <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="img/avatar2.png" class="img-circle" alt="user image"/>
-                                                </div>
-                                                <h4>
-                                                    AdminLTE Design Team
-                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
+</head>
+<body class="demo-only-page-blank">
+	<!-- WRAPPER -->
+	<div class="wrapper">
+		
+		<!-- TOP GENERAL ALERT -->
+		<div class="alert alert-danger top-general-alert">
+			<span>If you <strong>can't see the logo</strong> on the top left, please reset the style on right style switcher (for upgraded theme only).</span>
+			<a type="button" class="close">&times;</a>
+		</div>
+		<!-- END TOP GENERAL ALERT -->
 
-                                        </li>
-                                        <li> <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="img/avatar.png" class="img-circle" alt="user image"/>
-                                                </div>
-                                                <h4>
-                                                    Developers
-                                                    <small><i class="fa fa-clock-o"></i> Today</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
+		<!-- TOP BAR -->
+		<div class="top-bar">
+			<div class="container">
+				<div class="row">
+					<!-- logo -->
+					<div class="col-md-2 logo">
+						<a href="index.html"><img src="assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard" /></a>
+						<h1 class="sr-only">KingAdmin Admin Dashboard</h1>
+					</div>
+					<!-- end logo -->
+					<div class="col-md-10">
+						<div class="row">
+							<div class="col-md-3">
+								<!-- search box -->
+								<div id="tour-searchbox" class="input-group searchbox">
+									<input type="search" class="form-control" placeholder="enter keyword here...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+									</span>
+								</div>
+								<!-- end search box -->
+							</div>
+							<div class="col-md-9">
+								<div class="top-bar-right">
+									<!-- responsive menu bar icon -->
+									<a href="page-blank.html#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
+									<!-- end responsive menu bar icon -->
+									<button type="button" id="start-tour" class="btn btn-link"><i class="fa fa-refresh"></i> Start Tour</button>
+									<button type="button" id="global-volume" class="btn btn-link btn-global-volume"><i class="fa"></i> <span class="badge element-bg-color-blue">New</span></button>
+									<div class="notifications">
+										<ul>
+											<!-- notification: inbox -->
+											<li class="notification-item inbox">
+												<div class="btn-group">
+													<a href="page-blank.html#" class="dropdown-toggle" data-toggle="dropdown">
+														<i class="fa fa-envelope"></i><span class="count">2</span>
+														<span class="circle"></span>
+													</a>
 
-                                        </li>
-                                        <li> <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="img/avatar2.png" class="img-circle" alt="user image"/>
-                                                </div>
-                                                <h4>
-                                                    Sales Department
-                                                    <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
+													<ul class="dropdown-menu" role="menu">
+														<li class="notification-header">
+															<em>You have 2 unread messages</em>
+														</li>
+														<li class="inbox-item clearfix">
+															<a href="page-blank.html#">
+																<div class="media">
+																	<div class="pull-left" href="#">
+																		<img class="media-object" src="assets/img/user1.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">Antonius</h5>
+																		<p class="text">The problem just happened this morning. I can't see ...</p>
+																		<span class="timestamp">4 minutes ago</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="inbox-item unread clearfix">
+															<a href="page-blank.html#">
+																<div class="media">
+																	<div class="pull-left" href="#">
+																		<img class="media-object" src="assets/img/user2.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">Michael</h5>
+																		<p class="text">Hey dude, cool theme!</p>
+																		<span class="timestamp">2 hours ago</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="inbox-item unread clearfix">
+															<a href="page-blank.html#">
+																<div class="media">
+																	<div class="pull-left" href="#">
+																		<img class="media-object" src="assets/img/user3.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">Stella</h5>
+																		<p class="text">Ok now I can see the status for each item. Thanks! :D</p>
+																		<span class="timestamp">Oct 6</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="inbox-item clearfix">
+															<a href="page-blank.html#">
+																<div class="media">
+																	<div class="pull-left" href="#">
+																		<img class="media-object" src="assets/img/user4.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">Jane Doe</h5>
+																		<p class="text"><i class="fa fa-reply"></i> Please check the status of your ...</p>
+																		<span class="timestamp">Oct 2</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="inbox-item clearfix">
+															<a href="page-blank.html#">
+																<div class="media">
+																	<div class="pull-left" href="#">
+																		<img class="media-object" src="assets/img/user5.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">John Simmons</h5>
+																		<p class="text"><i class="fa fa-reply"></i> I've fixed the problem :)</p>
+																		<span class="timestamp">Sep 12</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="notification-footer">
+															<a href="page-blank.html#">View All Messages</a>
+														</li>
+													</ul>
+												</div>
+											</li>
+											<!-- end notification: inbox -->
 
-                                        </li>
-                                        <li> <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="img/avatar.png" class="img-circle" alt="user image"/>
-                                                </div>
-                                                <h4>
-                                                    Reviewers
-                                                    <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
+											<!-- notification: general -->
+											<li class="notification-item general">
+												<div class="btn-group">
+													<a href="page-blank.html#" class="dropdown-toggle" data-toggle="dropdown">
+														<i class="fa fa-bell"></i><span class="count">8</span>
+														<span class="circle"></span>
+													</a>
+													<ul class="dropdown-menu" role="menu">
+														<li class="notification-header">
+															<em>You have 8 notifications</em>
+														</li>
+														<li>
+															<a href="page-blank.html#">
+																<i class="fa fa-comment green-font"></i>
+																<span class="text">New comment on the blog post</span>
+																<span class="timestamp">1 minute ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="page-blank.html#">
+																<i class="fa fa-user green-font"></i>
+																<span class="text">New registered user</span>
+																<span class="timestamp">12 minutes ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="page-blank.html#">
+																<i class="fa fa-comment green-font"></i>
+																<span class="text">New comment on the blog post</span>
+																<span class="timestamp">18 minutes ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="page-blank.html#">
+																<i class="fa fa-shopping-cart red-font"></i>
+																<span class="text">4 new sales order</span>
+																<span class="timestamp">4 hours ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="page-blank.html#">
+																<i class="fa fa-edit yellow-font"></i>
+																<span class="text">3 product reviews awaiting moderation</span>
+																<span class="timestamp">1 day ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="page-blank.html#">
+																<i class="fa fa-comment green-font"></i>
+																<span class="text">New comment on the blog post</span>
+																<span class="timestamp">3 days ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="page-blank.html#">
+																<i class="fa fa-comment green-font"></i>
+																<span class="text">New comment on the blog post</span>
+																<span class="timestamp">Oct 15</span>
+															</a>
+														</li>
+														<li>
+															<a href="page-blank.html#">
+																<i class="fa fa-warning red-font"></i>
+																<span class="text red-font">Low disk space!</span>
+																<span class="timestamp">Oct 11</span>
+															</a>
+														</li>
+														<li class="notification-footer">
+															<a href="page-blank.html#">View All Notifications</a>
+														</li>
+													</ul>
+												</div>
+											</li>
+											<!-- end notification: general -->
+										</ul>
+									</div>
 
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">See All Messages</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-warning"></i>
-                                <span class="label label-warning">10</span>
-                            </a>
+									<!-- logged user and the menu -->
+									<div class="logged-user">
+										<div class="btn-group">
+											<a href="page-blank.html#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+												<img src="assets/img/user-avatar.png" />
+												<span class="name">Stacy Rose</span> <span class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a href="page-blank.html#">
+														<i class="fa fa-user"></i>
+														<span class="text">Profile</span>
+													</a>
+												</li>
+												<li>
+													<a href="page-blank.html#">
+														<i class="fa fa-cog"></i>
+														<span class="text">Settings</span>
+													</a>
+												</li>
+												<li>
+													<a href="page-blank.html#">
+														<i class="fa fa-power-off"></i>
+														<span class="text">Logout</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- end logged user and the menu -->
+								</div><!-- /top-bar-right -->
+							</div>
+						</div><!-- /row -->
+					</div>
+				</div><!-- /row -->
+			</div><!-- /container -->
+		</div><!-- /top -->
+		
 
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 10 notifications</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li> <a href="#">
-                                                <i class="ion ion-ios7-people info"></i> 5 new members joined today
-                                            </a>
+		<!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+		<div class="bottom">
+			<div class="container">
+				<div class="row">
+					<!-- left sidebar -->
+					<div class="col-md-2 left-sidebar">
 
-                                        </li>
-                                        <li> <a href="#">
-                                                <i class="fa fa-warning danger"></i> Very long description here that may not fit into the page and may cause design problems
-                                            </a>
+						<!-- main-nav -->
+						<nav class="main-nav">
+							
+							<ul class="main-menu">
+								<li ><a href="index.html"><i class="fa fa-dashboard fa-fw"></i><span class="text">Dashboard</span></a></li>
+								<li class="active"><a href="page-blank.html#" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">Pages</span>
+									<i class="toggle-icon fa fa-angle-left"></i></a>
+									<ul class="sub-menu open">
+										<li ><a href="page-profile.html"><span class="text">Profile</span></a></li>
+										<li ><a href="page-invoice.html"><span class="text">Invoice</span></a></li>
+										<li ><a href="page-knowledgebase.html"><span class="text">Knowledge Base</span></a></li>
+										<li ><a href="page-inbox.html"><span class="text">Inbox</span></a></li>
+										<li ><a href="page-register.html"><span class="text">Register</span></a></li>
+										<li ><a href="page-login.html"><span class="text">Login</span></a></li>
+										<li ><a href="page-404.html"><span class="text">404</span></a></li>
+										<li class="active"><a href="page-blank.html"><span class="text">Blank Page</span></a></li>
+									</ul>
+								</li>
+								<li ><a href="page-blank.html#" class="js-sub-menu-toggle"><i class="fa fa-bar-chart-o fw"></i><span class="text">Charts &amp; Statistics</span>
+									<i class="toggle-icon fa fa-angle-left"></i></a>
+									<ul class="sub-menu ">
+										<li ><a href="charts-statistics.html"><span class="text">Charts</span></a></li>
+										<li ><a href="charts-statistics-interactive.html"><span class="text">Interactive Charts</span></a></li>
+										<li ><a href="charts-statistics-real-time.html"><span class="text">Realtime Charts</span></a></li>
+										<li ><a href="charts-d3charts.html"><span class="text">D3 Charts</span></a></li>
+									</ul>
+								</li>
+								<li ><a href="page-blank.html#" class="js-sub-menu-toggle"><i class="fa fa-edit fw"></i><span class="text">Forms</span>
+									<i class="toggle-icon fa fa-angle-left"></i></a>
+									<ul class="sub-menu ">
+										<li ><a href="form-inplace-editing.html"><span class="text">In-place Editing <span class="badge element-bg-color-blue">New</span></span></a></li>
+										<li ><a href="form-elements.html"><span class="text">Form Elements <span class="badge element-bg-color-blue">Updated</span></span></a></li>
+										<li ><a href="form-layouts.html"><span class="text">Form Layouts <span class="badge element-bg-color-blue">New</span></span></a></li>
+										<li ><a href="form-bootstrap-elements.html"><span class="text">Bootstrap Elements <span class="badge element-bg-color-blue">New</span></span></a></li>
+										<li ><a href="form-validations.html"><span class="text">Validation</span></a></li>
+										<li ><a href="form-file-upload.html"><span class="text">File Upload</span></a></li>
+										<li ><a href="form-text-editor.html"><span class="text">Text Editor <span class="badge element-bg-color-blue">New</span></span></a></li>
+									</ul>
+								</li>
+								<li ><a href="page-blank.html#" class="js-sub-menu-toggle"><i class="fa fa-list-alt fw"></i><span class="text">UI Elements</span>
+									<i class="toggle-icon fa fa-angle-left"></i></a>
+									<ul class="sub-menu ">
+										<li ><a href="ui-elements-general.html"><span class="text">General Elements</span></a></li>
+										<li ><a href="ui-elements-buttons.html"><span class="text">Buttons <span class="badge element-bg-color-blue">Updated</span></span></a></li>
+										<li ><a href="ui-elements-icons.html"><span class="text">Icons</span></a></li>
+										<li ><a href="ui-elements-flash-message.html"><span class="text">Flash Message</span></a></li>
+									</ul>
+								</li>
+								<li ><a href="widgets.html"><i class="fa fa-puzzle-piece fa-fw"></i><span class="text">Widgets</span></a></li>
+								<li ><a href="page-blank.html#" class="js-sub-menu-toggle"><i class="fa fa-gears fw"></i><span class="text">Components</span>
+									<i class="toggle-icon fa fa-angle-left"></i></a>
+									<ul class="sub-menu ">
+										<li ><a href="components-wizard.html"><span class="text">Wizard (with validation)</span></a></li>
+										<li ><a href="components-calendar.html"><span class="text">Calendar</span></a></li>
+										<li ><a href="components-maps.html"><span class="text">Maps</span></a></li>
+										<li ><a href="components-gallery.html"><span class="text">Gallery</span></a></li>
+									</ul>
+								</li>
+								<li ><a href="page-blank.html#" class="js-sub-menu-toggle"><i class="fa fa-table fw"></i><span class="text">Tables</span>
+									<i class="toggle-icon fa fa-angle-left"></i></a>
+									<ul class="sub-menu ">
+										<li ><a href="tables-static-table.html"><span class="text">Static Table</span></a></li>
+										<li ><a href="tables-dynamic-table.html"><span class="text">Dynamic Table</span></a></li>
+									</ul>
+								</li>
+								<li ><a href="typography.html"><i class="fa fa-font fa-fw"></i><span class="text">Typography</span></a></li>
+							</ul>
+						</nav><!-- /main-nav -->
 
-                                        </li>
-                                        <li> <a href="#">
-                                                <i class="fa fa-users warning"></i> 5 new members joined
-                                            </a>
+						<div class="sidebar-minified js-toggle-minified">
+							<i class="fa fa-angle-left"></i>
+						</div>
 
-                                        </li>
-                                        <li> <a href="#">
-                                                <i class="ion ion-ios7-cart success"></i> 25 sales made
-                                            </a>
+						<!-- sidebar content -->
+						<div class="sidebar-content">
+							<div class="panel panel-default">
+								<div class="panel-heading"><h5><i class="fa fa-lightbulb-o"></i> Tips</h5></div>
+								<div class="panel-body">
+									<p>You can do live search to the widget at search box located at top bar. It's very useful if your dashboard is full of widget.</p>
+								</div>
+							</div>
+							
+							<h5 class="label label-default"><i class="fa fa-info-circle"></i> Server Info</h5>
+							<ul class="list-unstyled list-info-sidebar bottom-30px">
+								<li class="data-row">
+									<span class="data-name">Disk Space Usage</span>
+									<span class="data-value">
+										274.43 / 2 GB
+										<div class="progress progress-xs">
+											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+												<span class="sr-only">10%</span>
+											</div>
+										</div>
+									</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Monthly Bandwidth Transfer</span>
+									<span class="data-value">
+										230 / 500 GB
+										<div class="progress progress-xs">
+											<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100" style="width: 46%">
+												<span class="sr-only">46%</span>
+											</div>
+										</div>
+									</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Database Disk Space</span>
+									<span class="data-value">219.45 MB</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Operating System</span>
+									<span class="data-value">Linux</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Apache Version</span>
+									<span class="data-value">2.4.6</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">PHP Version</span>
+									<span class="data-value">5.3.27</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">MySQL Version</span>
+									<span class="data-value">5.5.34-cll</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Architecture</span>
+									<span class="data-value">x86_64</span>
+								</li>
+							</ul>
+						</div>
+						<!-- end sidebar content -->
+					</div>
+					<!-- end left sidebar -->
 
-                                        </li>
-                                        <li> <a href="#">
-                                                <i class="ion ion-ios7-person danger"></i> You changed your username
-                                            </a>
+					<!-- content-wrapper -->
+					<div class="col-md-10 content-wrapper">
+						<div class="row">
+							<div class="col-lg-4 ">
+								<ul class="breadcrumb">
+									<li><i class="fa fa-home"></i><a href="page-blank.html#">Home</a></li>
+									<li><a href="page-blank.html#">Pages</a></li> <li class="active">Blank Page</li>
+								</ul>
+							</div>
+							<div class="col-lg-8 ">
+								<div class="top-content">
+									<ul class="list-inline quick-access">
+										<li>
+											<a href="charts-statistics-interactive.html">
+												<span class="quick-access-item bg-color-green">
+													<i class="fa fa-bar-chart-o"></i>
+													<h5>CHARTS</h5><em>basic, interactive, real-time</em>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="page-inbox.html">
+												<span class="quick-access-item bg-color-blue">
+													<i class="fa fa-envelope"></i>
+													<h5>INBOX</h5><em>inbox with gmail style</em>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="tables-dynamic-table.html">
+												<span class="quick-access-item bg-color-orange">
+													<i class="fa fa-table"></i>
+													<h5>DYNAMIC TABLE</h5><em>tons of features and interactivity</em>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						
+						<!-- main -->
+						<div class="content">
+							<div class="main-header">
+								<h2>Blank Page</h2>
+								<em>an example of blank page</em>
+							</div>
 
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">View all</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- Tasks: style can be found in dropdown.less -->
-                        <li class="dropdown tasks-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-tasks"></i>
-                                <span class="label label-danger">9</span>
-                            </a>
+							<div class="main-content">
+							</div><!-- /main-content -->
+						</div><!-- /main -->
+					</div><!-- /content-wrapper -->
+				</div><!-- /row -->
+			</div><!-- /container -->
+		</div>
+		<!-- END BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+		<div class="push-sticky-footer"></div>
+	</div><!-- /wrapper -->
 
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 9 tasks</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li>
-                                            <!-- Task item --> <a href="#">
-                                                <h3>
-                                                    Design some buttons
-                                                    <small class="pull-right">20%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
+	<!-- FOOTER -->
+	<footer class="footer">
+		&copy; 2014 The Develovers
+	</footer>
+	<!-- END FOOTER -->
 
-                                        </li>
-                                        <!-- end task item -->
-                                        <li>
-                                            <!-- Task item --> <a href="#">
-                                                <h3>
-                                                    Create a nice theme
-                                                    <small class="pull-right">40%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">40% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
+	<!-- STYLE SWITCHER -->
+	<div class="del-style-switcher">
+		<div class="del-switcher-toggle toggle-hide"></div>
+		<form>
+			<section class="del-section del-section-skin">
+				<h5 class="del-switcher-header">Choose Skins:</h5>
 
-                                        </li>
-                                        <!-- end task item -->
-                                        <li>
-                                            <!-- Task item --> <a href="#">
-                                                <h3>
-                                                    Some task I need to do
-                                                    <small class="pull-right">60%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">60% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
+				<ul>
+					<li><a href="page-blank.html#" title="Slate Gray" class="switch-skin slategray" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/slategray.css")}}">Slate Gray</a></li>
+					<li><a href="page-blank.html#" title="Dark Blue" class="switch-skin darkblue" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/darkblue.css")}}">Dark Blue</a></li>
+					<li><a href="page-blank.html#" title="Dark Brown" class="switch-skin darkbrown" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/darkbrown.css")}}">Dark Brown</a></li>
+					<li><a href="page-blank.html#" title="Light Green" class="switch-skin lightgreen" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/lightgreen.css")}}">Light Green</a></li>
+					<li><a href="page-blank.html#" title="Orange" class="switch-skin orange" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/orange.css")}}">Orange</a></li>
+					<li><a href="page-blank.html#" title="Red" class="switch-skin red" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/red.css")}}">Red</a></li>
+					<li><a href="page-blank.html#" title="Teal" class="switch-skin teal" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/teal.css")}}">Teal</a></li>
+					<li><a href="page-blank.html#" title="Yellow" class="switch-skin yellow" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/yellow.css")}}">Yellow</a></li>
+				</ul>
 
-                                        </li>
-                                        <!-- end task item -->
-                                        <li>
-                                            <!-- Task item --> <a href="#">
-                                                <h3>
-                                                    Make beautiful transitions
-                                                    <small class="pull-right">80%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">80% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
+				<button type="button" class="switch-skin-full fulldark" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/fulldark.css")}}">Full Dark</button>
+				<button type="button" class="switch-skin-full fullbright" data-skin="{{reverse_url("admin-static-url", "admin/css/skins/fullbright.css")}}">Full Bright</button>
+			</section>
+			
+			<p><a href="page-blank.html#" title="Reset Style" class="del-reset-style">Reset Style</a></p>
+		</form>
+	</div>
+	<!-- END STYLE SWITCHER -->
 
-                                        </li>
-                                        <!-- end task item -->
-                                    </ul>
-                                </li>
-                                <li class="footer"> <a href="#">View all tasks</a>
-
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span>Alex Parakhnevich <i class="caret"></i></span>
-                            </a>
-
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <img src="img/avatar3.png" class="img-circle" alt="User Image" />
-                                    <p>Jane Doe - Web Developer <small>Member since Nov. 2012</small>
-
-                                    </p>
-                                </li>
-                                <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="col-xs-4 text-center"> <a href="#">Followers</a>
-
-                                    </div>
-                                    <div class="col-xs-4 text-center"> <a href="#">Sales</a>
-
-                                    </div>
-                                    <div class="col-xs-4 text-center"> <a href="#">Friends</a>
-
-                                    </div>
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left"> <a href="#" class="btn btn-default btn-flat">Profile</a>
-
-                                    </div>
-                                    <div class="pull-right"> <a href="#" class="btn btn-default btn-flat">Sign out</a>
-
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
-                <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <!-- Sidebar user panel -->
-                    <div class="user-panel">{% block user_panel %}{% endblock %}</div>
-                    <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." /> <span class="input-group-btn">
-                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-
-                        </div>
-                    </form>
-                    <!-- /.search form -->
-                    <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu">
-                        <li class="active"> <a href="/admin/">
-                                <i class="fa fa-bars"></i> <span>Dashboard</span>
-                            </a>
-
-                        </li>{% for group in model_groups %}
-                        <li class="treeview"> <a href="#">
-                                <i class="fa fa-{{group.glyphicon}}"></i>
-                                <span>{{ group.label }}</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-
-                            <ul class="treeview-menu">{% for name in group.model_names %}
-                                <li> <a href="{{ reverse_url('admin_list', name, 1) }}">
-                                    <i class="fa fa-angle-double-right"></i> {{ name }}
-                                  </a>
-
-                                </li>{% endfor %}</ul>
-                        </li>{% endfor %}</ul>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                     <h1>
-                        {% block content_header %}Dashboard{% endblock %}
-                        <small>Control panel</small>
-                    </h1>
-                    
-                    <ol class="breadcrumb">
-                    {% block breadcrumbs %}
-                        <li><a href="#"><i class="fa fa-bars"></i> Home</a>
-                        </li>
-                        <li class="active">Dashboard</li>
-                    {% endblock %}
-                    </ol>
-                    
-                </section>
-                <!-- Main content -->
-                <section class="content">
-                    {% block content %} {% endblock %}
-                </section>
-                <!-- /.content -->
-            </aside>
-            <!-- /.right-side -->
-        </div>
-        <!-- ./wrapper -->
-        <!-- add new calendar event modal -->
-        <!-- jQuery 2.0.2 -->
-        {% block jquery %}<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>{% endblock %}
-        <!-- jQuery UI 1.10.3 -->
-        <script src="/admin/static/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
-        <!-- Bootstrap -->
-        <script src="/admin/static/js/bootstrap.min.js" type="text/javascript"></script>
-        <!-- Morris.js charts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="/admin/static/js/plugins/morris/morris.min.js" type="text/javascript"></script>
-        <!-- Sparkline -->
-        <script src="/admin/static/js/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-        <!-- jvectormap -->
-        <script src="/admin/static/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
-        <script src="/admin/static/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
-        <!-- fullCalendar -->
-        <script src="/admin/static/js/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-        <!-- jQuery Knob Chart -->
-        <script src="/admin/static/js/plugins/jqueryKnob/jquery.knob.js" type="text/javascript"></script>
-        <!-- daterangepicker -->
-        <script src="/admin/static/js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-        <!-- Bootstrap WYSIHTML5 -->
-        <script src="/admin/static/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
-        <!-- iCheck -->
-        <script src="/admin/static/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-        <!-- AdminLTE App -->
-        <script src="/admin/static/js/AdminLTE/app.js" type="text/javascript"></script>
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="/admin/static/js/AdminLTE/dashboard.js" type="text/javascript"></script>
-    </body>
-
+	<!-- Javascript -->
+	<script src="{{reverse_url("admin-static-url", "admin/js/jquery-2.1.0.min.js")}}"></script>
+	<script src="{{reverse_url("admin-static-url", "admin/js/bootstrap.js")}}"></script>
+	<script src="{{reverse_url("admin-static-url", "admin/js/modernizr.js")}}"></script>
+	<script src="{{reverse_url("admin-static-url", "admin/js/bootstrap-tour.custom.js")}}"></script>
+	<script src="{{reverse_url("admin-static-url", "admin/js/king-common.min.js")}}"></script>
+	<script src="{{reverse_url("admin-static-url", "admin/style-switcher/js/deliswitch.js")}}"></script>
+</body>
 </html>
