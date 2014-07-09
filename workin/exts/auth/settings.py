@@ -8,4 +8,4 @@ auth_user_model = 'workin.exts.auth.models.User'
 auth_session_key = 'auth_user_id'
 
 # cookie key of session
-auth_cookie_key = 'auth_session_id'
+auth_cookie_key = 'session_id'

@@ -27,7 +27,7 @@ class Jinja2Mixin(object):
         }
         context.update(default_context)
         context.update(escape_context)
-        context.update(self.ui)     # Enabled tornado UI modules and methods.
+        # context.update(self.ui)     # Enabled tornado UI modules and methods.
         template = self.application.jinja_env.get_template(
             template_name)
         return template.render(**context)
