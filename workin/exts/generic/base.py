@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import tornado
+from workin.web import BaseHandler
 
 
 class ContextMixin(object):
@@ -16,7 +16,7 @@ class ContextMixin(object):
         return kwargs
 
 
-class GenericHandler(tornado.web.RequestHandler):
+class GenericHandler(BaseHandler):
     def get(self, *args, **kwargs):
         self.args = args
         self.kwargs = kwargs

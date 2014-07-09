@@ -1,0 +1,116 @@
+{% extends "templates/base.html" %}
+
+{% block breadcrumbs %}
+<li>
+    <a href="#"><i class="fa fa-bars"></i> Home</a>
+</li>
+<li class="active">{{ table.header }} list</li>
+{% end %}
+                    
+{% block content %}                   
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <form method="POST">
+            <div class="box-header">
+                 <h3 class="box-title">
+                     Actions:
+                     {% raw form.action(class_="input-sm") %}
+                     <button class="btn btn-primary btn-sm" type="submit">Go</button>
+                 </h3> 
+                 <a href="{{ reverse_url('admin_add', model.__name__) }}" class="btn btn-primary btn-sm btn-bh">Add new</a>
+            </div>
+            
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+
+                    <table id="example1" class="table table-bordered table-striped dataTable" aria-describedby="example1_info">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                {% for cell in table.first_row %}
+                                    <th class="sorting">
+                                        {{ cell.value }}
+                                    </th>
+                                {% end %}
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            {% block tfoot %} {% end %}
+                        </tfoot>
+                        <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            {% for row, subfield in zip(table.rows, form.rows) %}
+                            <tr>
+                                <td>{% raw subfield() %}</td>
+                                {% for cell in row.cells %}
+                                    <td>{{cell.value}}</td>
+                                {% end %}
+                                <td>
+                                <div class="btn-group">
+                                    {% for action in table.model_admin.list_actions_column %}
+                                    <a href="{{reverse_url(action.url_name, row.model_admin.model.__name__, row.obj_primary_key)}}" 
+                                    class="btn btn-primary">
+                                        {{ action.label }}
+                                    </a>
+                                    {% end %}
+                                </div>
+                                </td>
+                             </tr>                                            
+                            {% end %}
+                        </tbody>
+                    </table>
+                   <!-- <div class="row">
+                        <div class="col-xs-6">
+                            <div class="dataTables_info" id="example1_info">Showing 1 to 10 of 57 entries</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="dataTables_paginate paging_bootstrap">
+                                <ul class="pagination">
+                                    {% if page_obj.has_previous() %}
+                                    <li class="prev">
+                                    {% else %}
+                                    <li class="prev disabled">
+                                    {% end %}
+                                        <a href="{{ reverse_url('admin_list', 'Post', 1) }}">← Previous</a>
+                                    </li>
+                                    
+                                    {% for page_num in paginator.page_range %}
+                                        {% if page_num == page_obj.number %}
+                                        <li class="active">
+                                        {% else %}
+                                        <li>
+                                        {% end %}
+                                            <a href="#">{{ page_num }}</a>
+                                        </li>
+                                    {% end %}
+                                    
+                                    {% if page_obj.has_next() %}
+                                    <li class="next">
+                                    {% else %}
+                                    <li class="next disabled">
+                                    {% end %}
+                                        <a href="#">Next → </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <!-- /.box-body -->
+          </form>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+{% block jquery %}{% end %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="/admin/static/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+<script src="/admin/static/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function () {
+    $('#example1').dataTable();
+});
+</script>
+{% end %}
