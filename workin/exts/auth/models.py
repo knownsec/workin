@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from sqlalchemy import Column
-from sqlalchemy.types import Integer, String, Unicode
+from sqlalchemy.types import Integer, String, Unicode, DateTime
 
 from workin.database import Base
 
@@ -15,12 +15,14 @@ class User(Base):
     import hasher
     HASHER = hasher
 
-    __tablename__ = 'user'
+    __tablename__ = 'test_user'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(Unicode(100), nullable=False, index=True)
     password = Column(String(100), nullable=False)
     email = Column(Unicode(100), nullable=False)
+    date_joined = Column(DateTime(), nullable=False)
+    last_login = Column(DateTime())
 
     def __repr__(self):
         return '<User %s>' % self.id
