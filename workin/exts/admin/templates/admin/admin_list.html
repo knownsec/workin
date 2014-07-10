@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+
+{% block content_header %}
+<div class="main-header">
+    <h2>{{model.__name__}} List </h2>
+    <em>an example of dash</em>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="widget widget-table">
+        <div class="widget-header"><h3><i class="fa fa-table"></i> Featured Table</h3> <em> - <a href="http://datatables.net/">jQuery Data Table</a> with sorting feature, live search and pagination</em></div>
+        <div class="widget-content">
+            <table class="table table-sorting table-striped table-hover datatable" cellpadding="0" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        {% for cell in table.first_row %}
+                        <th {% if cell.has_sort %}class="sorting"{% endif %}>
+                            {{ cell.value }}
+                        </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tfoot>
+                    {% block tfoot %} {% endblock %}
+                </tfoot>
+                <tbody>
+                    {% for row, subfield in zip(table.rows, form.rows) %}
+                    <tr>
+                        <td>{{ subfield() }}</td>
+                        {% for cell in row.cells %}
+                            <td>{{cell.value}}</td>
+                        {% endfor %}
+                        <td>
+                        <div class="btn-group">
+                            {% for action in table.model_admin.list_actions_column %}
+                            <a href="{{reverse_url(action.url_name, row.model_admin.model.__name__, row.obj_primary_key)}}"
+                            class="btn btn-primary">
+                                {{ action.label }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><!-- /main-content -->
+{% endblock %}
+

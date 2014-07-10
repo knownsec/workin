@@ -83,12 +83,10 @@ class Application(tornado.web.Application):
                     self.settings["session_timeout"])
 
     def _setup_template_loaders(self):
-        if "template_path" not in self.settings:
-            return
         if "template_loader" in self.settings:
             loader = self.settings['template_loader']
         else:
-            loader = FileSystemLoader(self.settings['template_path'])
+            loader = FileSystemLoader(self.settings['template_dirs'])
         autoescape = bool(self.settings['autoescape'])
         self.jinja_env = Environment(
             loader=loader,
@@ -134,9 +132,9 @@ class BaseHandler(Jinja2Mixin, tornado.web.RequestHandler):
 
         return ctx
 
-    def render(self, template, **context):
+    def render_string(self, template_name, **context):
         context = self._populate_context_from_ctxprocessors(context)
-        return super(BaseHandler, self).render(template, **context)
+        return super(BaseHandler, self).render_string(template_name, **context)
 
 
 class RequestHandler(BaseHandler, FlashMessageMixin):
