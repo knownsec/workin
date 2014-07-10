@@ -52,3 +52,8 @@
 </div><!-- /main-content -->
 {% endblock %}
 
+{% block scripts %}
+<script src="{{reverse_url("admin-static-url", "admin/js/datatable/jquery.dataTables.min.js")}}"></script>
+<script src="{{reverse_url("admin-static-url", "admin/js/datatable/jquery.dataTables.bootstrap.js")}}"></script>
+<script src="{{reverse_url("admin-static-url", "admin/js/king-table.min.js")}}"></script>
+{% endblock %}
