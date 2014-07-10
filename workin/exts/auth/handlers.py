@@ -53,6 +53,8 @@ class AuthHandlerMixin(object):
         if next_url:
             self.redirect(next_url)
 
+        return user
+
     def login(self, user, next_url=None):
         """Persist a user id and send session id as a cookie.
 
