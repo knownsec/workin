@@ -17,6 +17,7 @@ class BaseAdmin(object):
     list_columns_names = {}
     list_actions_column = [EditAction, DetailAction, DeleteAction]
     list_primary_key = False
+    sort_columns = []
     form_validators = {}
     verbose_names = {}
     verbose_names_plural = {}
@@ -30,8 +31,16 @@ class BaseAdmin(object):
 
 class AdminSite(object):
     model_admins = set()
-    model_groups = set()
+    _groups_dict = {}
 
-    def register(self, admin_class, group="", **kwargs):
-        self.model_admins.add(admin_class)
-        self.model_groups.add(group)
+    def register(self, model, admin_class, group_class=None, **kwargs):
+        self.model_admins.add(admin_class())
+        if group_class:
+            gkey = group_class.__name__
+            group = self._groups_dict.get(gkey, group_class())
+            group.add_model(model)
+            self._groups_dict.update({gkey: group})
+
+    @property
+    def model_groups(self):
+        return self._groups_dict.values()

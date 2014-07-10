@@ -1,11 +1,13 @@
 {% extends "admin/base.html" %}
 
-{% block content %}
+{% block content_header %}
 <div class="main-header">
     <h2>{{object.__class__.__name__}} Details</h2>
     <em>an example of dash</em>
 </div>
+{% endblock %}
 
+{% block content %}
 <div class="main-content">
     <ul class="list-unstyled bottom-30px">
         {% for key, value in property_map.iteritems() %}

@@ -1,11 +1,13 @@
 {% extends "admin/base.html" %}
 
-{% block content %}
+{% block content_header %}
 <div class="main-header">
     <h2>New {{handler.model.__name__}}</h2>
     <em>an example of dash</em>
 </div>
+{% endblock %}
 
+{% block content %}
 <div class="main-content">
     <form class="form-horizontal" role="form" method="post" action=".">
         {{ xsrf_form_html() }}

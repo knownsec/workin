@@ -1,11 +1,13 @@
 {% extends "admin/base.html" %}
 
-{% block content %}
+{% block content_header %}
 <div class="main-header">
     <h2>{{model.__name__}} List </h2>
     <em>an example of dash</em>
 </div>
+{% endblock %}
 
+{% block content %}
 <div class="main-content">
     <div class="widget widget-table">
         <div class="widget-header"><h3><i class="fa fa-table"></i> Featured Table</h3> <em> - <a href="http://datatables.net/">jQuery Data Table</a> with sorting feature, live search and pagination</em></div>
@@ -15,7 +17,7 @@
                     <tr>
                         <th></th>
                         {% for cell in table.first_row %}
-                        <th class="sorting">
+                        <th {% if cell.has_sort %}class="sorting"{% endif %}>
                             {{ cell.value }}
                         </th>
                         {% endfor %}

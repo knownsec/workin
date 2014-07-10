@@ -11,10 +11,9 @@ from workin.exts.generic import (TemplateHandler, ListHandler, DetailHandler,
     FormHandler, DeleteHandler, FormMixin)
 from workin.forms import BaseForm
 
-from .groups import BaseGroup
 from .forms import AdminListForm
 from .actions import BULK_ACTIONS_MAP
-from . import site
+from . import site, BaseGroup
 
 
 class AdminMixin(object):
@@ -31,18 +30,18 @@ class AdminMixin(object):
         #     raise ConfigError('No models were provided in \'admin_classes\' setting.')
 
     def get_context_data(self, **kwargs):
-        # model_groups = site.model_groups
-        # kwargs['model_groups'] = [group() for group in model_groups]
+        kwargs['model_groups'] = site.model_groups
 
-        # grouped_models = []
-        # for group in model_groups:
-        #     grouped_models.extend(group.model_list)
-        # orphan_models = [model[0] for model in self.model_set.values() if model[0] not in grouped_models]
-        # if len(orphan_models) > 0:
-        #     orphan_group = BaseGroup(orphan_models)
-        #     kwargs['model_groups'].append(orphan_group)
+        grouped_models = []
+        for group in site.model_groups:
+            grouped_models.extend(group.model_list)
+        orphan_models = [model[0] for model in self.model_set.values() if model[0] not in grouped_models]
+        if len(orphan_models) > 0:
+            orphan_group = BaseGroup(orphan_models)
+            kwargs['model_groups'].append(orphan_group)
 
         kwargs['model_names'] = self.model_set.keys()
+        # table list will use python zip function
         kwargs['zip'] = zip
 
         return super(AdminMixin, self).get_context_data(**kwargs)
@@ -192,10 +191,12 @@ class Table(object):
     def resolve_first_row_cells(self):
         self.first_row = []
         for column_name in self.model_admin.list_columns:
+            has_sort = column_name in self.model_admin.sort_columns
             if column_name in self.model_admin.list_columns_names:
-                cell = Cell(self.model_admin.list_columns_names[column_name])
+                cell = Cell(self.model_admin.list_columns_names[column_name],
+                        sorting=has_sort)
             else:
-                cell = Cell(column_name)
+                cell = Cell(column_name, sorting=has_sort)
             self.first_row.append(cell)
 
     @property
@@ -229,13 +230,18 @@ class Row(object):
 
 
 class Cell(object):
-    def __init__(self, value, link=None):
+    def __init__(self, value, link=None, sorting=False):
         self.value = value
         self.link = link
+        self.sorting = sorting
 
     @property
     def has_link(self):
         return bool(self.link)
+
+    @property
+    def has_sort(self):
+        return bool(self.sorting)
 
 
 class AdminListHandler(AdminModelMixin, FormMixin, ListHandler):
