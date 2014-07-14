@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import json
 import logging
 
 import tornado.web
@@ -154,6 +155,12 @@ class RequestHandler(BaseHandler, FlashMessageMixin):
             self.session.save()
 
         tornado.web.RequestHandler.on_finish(self)
+
+    def write_json(self, data=None, encoder=json.JSONEncoder):
+        if not data:
+            data = {}
+        self.set_header("Content-Type", "application/json")
+        self.write(json.dumps(data, encoder))
 
     def get_args(self, key, default=None, type=None):
         if type == list:
