@@ -24,7 +24,7 @@ class Route(object):
 
     def __init__(self, pattern, kwargs={}, name=None, host='.*$'):
         self.pattern = pattern
-        self.kwargs = {}
+        self.kwargs = kwargs
         self.name = name
         self.host = host
 
