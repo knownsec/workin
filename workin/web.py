@@ -154,6 +154,9 @@ class RequestHandler(BaseHandler, FlashMessageMixin):
         if self.session:  # and self.session.is_modified:
             self.session.save()
 
+        # remove the sqla-session at the end of each request.
+        self.db.remove()
+
         tornado.web.RequestHandler.on_finish(self)
 
     def write_json(self, data=None, encoder=json.JSONEncoder):
