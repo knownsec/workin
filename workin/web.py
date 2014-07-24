@@ -92,6 +92,7 @@ class Application(tornado.web.Application):
         self.jinja_env = Environment(
             loader=loader,
             auto_reload=self.settings['debug'],
+            extensions=['workin.utils.jinja2htmlcompress.SelectiveHTMLCompress'],
             autoescape=autoescape, )
 
     def _setup_installed_apps(self):
