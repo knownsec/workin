@@ -9,6 +9,7 @@ import tornado.options
 from jinja2 import Environment, FileSystemLoader
 
 from workin.conf import settings
+from workin.exceptions import ImproperlyConfigured
 from workin.middleware import MiddlewareManager
 from workin.mixins.flash_message import FlashMessageMixin
 from workin.mixins.jinja2 import Jinja2Mixin
@@ -34,8 +35,10 @@ class Application(tornado.web.Application):
         self._setup_template_loaders()
         self._setup_installed_apps()
         self._setup_context_processors()
+        self._setup_uimodules()
 
         tornado.web.Application.__init__(self, handlers=self.handlers,
+                ui_modules=self.ui_modules,
                 **self.settings)
 
         # Due to middleware run_init_hooks will call Application, so execute
@@ -50,6 +53,10 @@ class Application(tornado.web.Application):
         except Exception, e:
             logging.error(e)
             raise
+
+    def _setup_uimodules(self):
+        from workin import uimodules
+        self.ui_modules = uimodules
 
     def _setup_middlewares(self):
         self.middleware_manager = MiddlewareManager(**self.settings)
@@ -103,9 +110,19 @@ class Application(tornado.web.Application):
         for app in self.settings['installed_apps']:
             try:
                 importlib.import_module(app + '.handlers')
+            except ImportError, e:
+                logging.warn("No handlers found in app '%s':"
+                        "%s" % (app, e))
+            try:
                 importlib.import_module(app + '.models')
             except ImportError, e:
                 logging.warn("No models/handlers found in app '%s':"
+                        "%s" % (app, e))
+
+            try:
+                importlib.import_module(app + '.uimodules')
+            except ImportError, e:
+                logging.warn("No uimodels found in app '%s':"
                         "%s" % (app, e))
 
         self.handlers.extend(Route.routes())
@@ -187,3 +204,16 @@ class RequestHandler(BaseHandler, FlashMessageMixin):
         prototype, jQuery and Mochikit and probably some more.'''
         return self.request.headers.get('X-Requested-With', '') \
                            .lower() == 'xmlhttprequest'
+
+
+class UIModules(object):
+    _uimodules = {}
+
+    def register(self, module_class, name):
+        if name in self._uimodules:
+            raise ImproperlyConfigured('Duplicate uimodule registered with \
+                    name %s' % name)
+        self._uimodules.update({name: module_class})
+
+
+uimodules = UIModules()
