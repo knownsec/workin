@@ -248,7 +248,6 @@ class AdminListHandler(AdminModelMixin, FormMixin, ListHandler):
     template_name = 'admin/admin_list.html'
     paginate_by = 10
     form_class = AdminListForm
-    # queryset = Post.query.order_by(desc(Post.created))
 
     def post(self, *args, **kwargs):
         """

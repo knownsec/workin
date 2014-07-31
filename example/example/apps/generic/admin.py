@@ -19,6 +19,10 @@ class PostAdmin(admin.BaseAdmin):
         'title': [Required()],
         'content': [Required()]
     }
+    verbose_names = {
+        'title': u'标题',
+        'content': u'内容'
+    }
 
 
 admin.site.register(Post, PostAdmin, admin.SystemGroup)

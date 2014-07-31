@@ -103,6 +103,10 @@ class Application(tornado.web.Application):
         for app in self.settings['installed_apps']:
             try:
                 importlib.import_module(app + '.handlers')
+            except ImportError, e:
+                logging.warn("No handlers found in app '%s':"
+                        "%s" % (app, e))
+            try:
                 importlib.import_module(app + '.models')
             except ImportError, e:
                 logging.warn("No models/handlers found in app '%s':"
