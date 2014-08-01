@@ -142,6 +142,14 @@ class BaseHandler(Jinja2Mixin, tornado.web.RequestHandler):
         context = self._populate_context_from_ctxprocessors(context)
         return super(BaseHandler, self).render_string(template_name, **context)
 
+    def prepare(self):
+        self.application.middleware_manager.run_request_hooks(self)
+        super(BaseHandler, self).prepare()
+
+    def finish(self, chunk=None):
+        self.application.middleware_manager.run_response_hooks(self)
+        super(BaseHandler, self).finish(chunk)
+
 
 class RequestHandler(BaseHandler, FlashMessageMixin):
 

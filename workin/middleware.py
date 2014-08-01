@@ -60,9 +60,9 @@ class MiddlewareManager():
                     raise
 
     def load(self):
-        if hasattr(self.settings, 'MIDDLEWARE_CLASSES') and len(
-                self.settings.MIDDLEWARE_CLASSES) > 0:
-            for mclass in self.settings.MIDDLEWARE_CLASSES:
+        middlewares = self.settings.get('middleware_classes', [])
+        if middlewares:
+            for mclass in middlewares:
                 try:
                     cls = import_object(mclass)
                 except ImportError, ex:

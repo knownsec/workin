@@ -9,3 +9,5 @@ AUTH_SESSION_KEY = 'auth_user_id'
 
 # cookie key of session
 AUTH_COOKIE_KEY = 'session_id'
+
+AUTH_COOKIE_DOMAIN = None

@@ -68,7 +68,11 @@ class AuthHandlerMixin(object):
         self.session[self._auth_session_key] = user.id
         self.session.save()
 
-        self.set_secure_cookie(self._auth_cookie_key, self.session.session_id)
+        # scanv login
+        # self.set_secure_cookie(self._auth_cookie_key, self.session.session_id,
+        #         domain=self.settings.get('auth_cookie_domain', None),
+        #         path=self.settings.get('auth_cookie_path', '/'),
+        #         expires_days=self.settings.get('auth_cookie_expire_days'))
         if next_url:
             self.redirect(next_url)
 
