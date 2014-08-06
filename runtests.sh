@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python -m unittest -vv "$@"
+nosetests --with-coverage --cover-package=workin

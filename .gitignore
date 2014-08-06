@@ -2,6 +2,7 @@
 *.sw[odp]
 *.db
 venv
+.coverage
 .tmp
 build
 dist
