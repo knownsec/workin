@@ -1,4 +1,4 @@
-workin
+workin [![Build Status](https://travis-ci.org/knownsec/workin.svg?branch=master)](https://travis-ci.org/knownsec/workin)
 ======
 
 Workin Tornado, a best practice for Tornado framework.
