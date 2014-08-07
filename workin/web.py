@@ -81,7 +81,8 @@ class Application(tornado.web.Application):
             engine = importlib.load_class(self.settings['session_engine'])
             self.session_engine = engine(self.settings["session_secret"],
                     self.settings["session_options"],
-                    self.settings["session_timeout"])
+                    self.settings["session_timeout"],
+                    self.settings["session_cookie_domain"])
 
     def _setup_template_loaders(self):
         if "template_loader" in self.settings:
