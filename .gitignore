@@ -1,8 +1,9 @@
+*.db
+*.egg-info
 *.py[cod]
 *.sw[odp]
-*.db
-venv
+.coverage
 .tmp
 build
 dist
-*.egg-info
+venv
