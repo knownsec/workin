@@ -12,9 +12,11 @@ from workin.session import SessionData, InvalidSessionException
 
 
 class RedisSessionEngine(object):
-    def __init__(self, secret, store_options, session_timeout):
+    def __init__(self, secret, store_options, session_timeout,
+            session_cookie_domain=None):
         self.secret = secret
         self.session_timeout = session_timeout
+        self.session_cookie_domain = session_cookie_domain
         try:
             if store_options.get('redis_pass'):
                 self.redis = redis.StrictRedis(host=store_options['redis_host'], port=store_options['redis_port'], password=store_options['redis_pass'])
@@ -64,8 +66,14 @@ class RedisSessionEngine(object):
         return session
 
     def set(self, request_handler, session):
-        request_handler.set_secure_cookie("session_id", session.session_id)
-        request_handler.set_secure_cookie("verification", session.hmac_key)
+        if self.session_cookie_domain:
+            request_handler.set_secure_cookie("session_id",
+                    session.session_id, domain=self.session_cookie_domain)
+            request_handler.set_secure_cookie("verification",
+                    session.hmac_key, domain=self.session_cookie_domain)
+        else:
+            request_handler.set_secure_cookie("session_id", session.session_id)
+            request_handler.set_secure_cookie("verification", session.hmac_key)
 
         session_data = json.dumps(dict(session.items()))
 
