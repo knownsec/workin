@@ -15,6 +15,7 @@ SESSION_OPTIONS = {
     'redis_port': 6379,
 }
 SESSION_TIMEOUT = 60
+SESSION_COOKIE_DOMAIN = ''
 
 TEMPLATE_DIRS = ('templates/', )
 

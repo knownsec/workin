@@ -25,6 +25,7 @@ $ ./runtests.sh
 run example:
 
 ```
+$ python setup.py install
 $ cd example
 $ python app.py
 ```
