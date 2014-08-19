@@ -18,6 +18,58 @@ class EmptyPage(InvalidPage):
 
 
 class Paginator(object):
+    """A helper class for paginating object list. Example::
+
+    .. sourcecode:: python
+
+        page_number = 1
+        user_list = db.session.query(Uesr).all()
+        user_pagnatior = Paginator(user_list, per_page=20)
+        current_page = user_pagnatior.page(page_number)
+
+        for user in current_page:
+            print user
+
+        if current_page.has_next():
+            print current_page.next_page_number
+
+        if current_page.has_previous():
+            print current_page.previous_page_number
+
+        self.render('use_in_jinja2.html', pager=current_page)
+
+    .. sourcecode:: html+jinja2
+
+        {% macro render_pagination(pager, endpoint_name) %}
+            <div class="pagination">
+                {% if pager.has_previous() %}
+                <a href="{{ reverse_url(endpoint_name) }}?page={{ pager.previous_page_number() }}">Prev</a>
+                {% endif %}
+                {% for number in pager.paginator.page_range %}
+                    {% if number != pager.number %}
+                <a href="{{ reverse_url(endpoint_name) }}?page={{ number }}">{{ number }}</a>
+                    {% else %}
+                <a class="current_page">{{ number }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if pager.has_next() %}
+                <a href="{{ reverse_url(endpoint_name) }}?page={{ pager.next_page_number() }}">Next</a>
+                {% endif %}
+            </div>
+        {% endmacro %}
+        {{ render_pagination(pager, 'user_list') }}
+
+    :param object_list: the list for paginate.
+    :param per_page: how many objects put in each page.
+    :param orphans: The minimum number of items allowed on the last page.
+                    If the last page have a number of items less than/equal to `orphans`,
+                    those items will be added to the previous page.
+    :param allow_empty_first_page: :class:`~workin.exts.generic.pagination.Paginator`
+                                   returns page even though no objects by default.
+                                   When this argument set to `False`, it
+                                   raises :class:`~workin.exts.generic.pagination.EmptyPage`
+                                   instead.
+    """
 
     def __init__(self, object_list, per_page, orphans=0,
                  allow_empty_first_page=True):
@@ -30,6 +82,9 @@ class Paginator(object):
     def validate_number(self, number):
         """
         Validates the given 1-based page number.
+
+        :param number: the number of page.
+        :returns: the page number itself.
         """
         try:
             number = int(number)
@@ -77,6 +132,7 @@ class Paginator(object):
                 # (i.e. is of type list).
                 self._count = len(self.object_list)
         return self._count
+    #: the total number of object_list.
     count = property(_get_count)
 
     def _get_num_pages(self):
@@ -90,6 +146,7 @@ class Paginator(object):
                 hits = max(1, self.count - self.orphans)
                 self._num_pages = int(ceil(hits / float(self.per_page)))
         return self._num_pages
+    #: the total number pages.
     num_pages = property(_get_num_pages)
 
     def _get_page_range(self):
@@ -98,6 +155,7 @@ class Paginator(object):
         a template for loop.
         """
         return range(1, self.num_pages + 1)
+    #: range of pagination
     page_range = property(_get_page_range)
 
 
