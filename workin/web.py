@@ -177,7 +177,7 @@ class RequestHandler(BaseHandler, FlashMessageMixin):
         if not data:
             data = {}
         self.set_header("Content-Type", "application/json")
-        self.write(json.dumps(data, encoder))
+        self.write(json.dumps(data, cls=encoder))
 
     def get_args(self, key, default=None, type=None):
         if type == list:
