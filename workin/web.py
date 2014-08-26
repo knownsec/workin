@@ -173,11 +173,11 @@ class RequestHandler(BaseHandler, FlashMessageMixin):
 
         tornado.web.RequestHandler.on_finish(self)
 
-    def write_json(self, data=None, encoder=json.JSONEncoder):
+    def write_json(self, data=None, encoder=json.JSONEncoder, **kwargs):
         if not data:
             data = {}
         self.set_header("Content-Type", "application/json")
-        self.write(json.dumps(data, encoder))
+        self.write(json.dumps(data, cls=encoder, **kwargs))
 
     def get_args(self, key, default=None, type=None):
         if type == list:
